@@ -1,3 +1,5 @@
+@file:Suppress("UNREACHABLE_CODE")
+
 package com.example.demo_package_pigeon.Utils
 
 import android.content.Context
@@ -29,4 +31,17 @@ object Utils {
         }
         return isNetworkAvailable
     }
+
+    /**
+     * Load mp4 file and convert to ByteArray
+     * @return bytearray if could read, else return null
+     */
+    fun loadVideoToBytes(context: Context, resourceId: Int): ByteArray? {
+        val inputStream = context.resources.openRawResource(resourceId)
+        inputStream.use {
+            return it.readBytes()
+        }
+        return null
+    }
+
 }

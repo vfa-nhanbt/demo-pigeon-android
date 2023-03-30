@@ -1,6 +1,7 @@
 package com.example.demo_package_pigeon
 
-import com.example.demo_package_pigeon.PlatformCode.GetWeatherPlatformChannel
+import com.example.demo_package_pigeon.PlatformCode.GetWeather.GetWeatherPlatformChannel
+import com.example.demo_package_pigeon.PlatformCode.SendVideo.SendVideoPlatformChannel
 import com.example.demo_package_pigeon.locators.ServiceLocator
 import com.example.demo_package_pigeon.repositories.IWeatherRepository
 import io.flutter.embedding.android.FlutterActivity
@@ -15,5 +16,6 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
 
         GetWeatherPlatformChannel.instance.call(flutterEngine, repository)
+        SendVideoPlatformChannel.instance.call(flutterEngine)
     }
 }

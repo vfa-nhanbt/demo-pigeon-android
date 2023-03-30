@@ -1,5 +1,6 @@
 import 'package:demo_package_pigeon/ui/home/home_page.dart';
 import 'package:demo_package_pigeon/ui/home/home_store.dart';
+import 'package:demo_package_pigeon/ui/video/video_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +13,7 @@ class AppRouters {
 
   // Declare app routes
   final String home = "/home";
+  final String video = "video";
 
   String get initial => home;
 
@@ -32,6 +34,13 @@ class AppRouters {
           create: (_) => GetIt.I(),
           child: const HomePage(),
         ),
+        routes: [
+          GoRoute(
+            path: video,
+            name: video,
+            builder: (context, state) => const VideoPage(),
+          ),
+        ],
       ),
     ],
   );

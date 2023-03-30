@@ -1,5 +1,8 @@
+import 'package:demo_package_pigeon/config/app_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../base/base_sore_state.dart';
@@ -35,13 +38,13 @@ class HomePage extends BaseStatelessPage {
               child: Center(
                 child: Observer(
                   builder: (_) {
-                    if (store.state == BaseStoreState.initial) {
-                      return TextInputField(
-                        controller: controller,
-                        onSubmitted: (value) =>
-                            store.getWeatherByCityName(value),
-                      );
-                    }
+                    // if (store.state == BaseStoreState.initial) {
+                    //   return TextInputField(
+                    //     controller: controller,
+                    //     onSubmitted: (value) =>
+                    //         store.getWeatherByCityName(value),
+                    //   );
+                    // }
                     if (store.state == BaseStoreState.loading) {
                       return const CircularProgressIndicator();
                     }
@@ -53,14 +56,23 @@ class HomePage extends BaseStatelessPage {
                         (store.state == BaseStoreState.error ||
                                 store.errorMessage != null)
                             ? Text(store.errorMessage ?? "Error")
-                            : Text(
-                                "${AppFormats.instance.formatDateTime.format(store.weather!.dateFromTimezone)}\n${store.weather!.name}\n${store.weather!.celsiusTemp.toStringAsFixed(2)}°C",
-                                textAlign: TextAlign.center,
-                              ),
+                            : store.state == BaseStoreState.initial
+                                ? SizedBox.fromSize()
+                                : Text(
+                                    "${AppFormats.instance.formatDateTime.format(store.weather!.dateFromTimezone)}\n${store.weather!.name}\n${store.weather!.celsiusTemp.toStringAsFixed(2)}°C",
+                                    textAlign: TextAlign.center,
+                                  ),
                         TextInputField(
                           controller: controller,
                           onSubmitted: (value) =>
                               store.getWeatherByCityName(value),
+                        ),
+                        SizedBox(height: 16.h),
+                        ElevatedButton(
+                          onPressed: () => GoRouter.of(context).pushNamed(
+                            AppRouters.instance.video,
+                          ),
+                          child: const Text("To Video Screen"),
                         ),
                       ],
                     );
